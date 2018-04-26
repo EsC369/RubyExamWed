@@ -4,9 +4,16 @@ Rails.application.routes.draw do
   root 'users#index'
   post '/register' => 'users#register'
   post '/login' => 'users#login'
-  get "/temp" => "users#temp"
+  get "/index" => "posts#index"
   # get '/groups' => 'groups#index' change to the main index after log in
   delete '/logout' => 'users#logout'
+  get "users/:user_id/show" => "users#show"
+
+  delete "posts/:post_id/destroy" => "posts#destroy"
+
+  resources :posts do
+    resources :likes
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

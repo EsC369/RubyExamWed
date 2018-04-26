@@ -1,0 +1,27 @@
+
+<p style="margin-left:10px;"><%= link_to 'Go Back', posts_path %></p>
+
+<h2>Bright Idea</h2>
+
+<%= @post.user.first_name %> says:</div>
+<%= @post.content %></div>
+
+<p>People who liked this post:</p>
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @likes.each do |like| %>
+            <tr>
+                <td><%= like.user_id %></td>
+                <td><a href="/users/<%= like.user.id %>/show"><%= like.user.first_name %> <%= like.user.last_name %></a></td>
+                <td><%= like.user.email %></td>
+            </tr>
+        <% end %>	
+    </tbody>
+</table>

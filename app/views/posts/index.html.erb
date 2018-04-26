@@ -1,0 +1,38 @@
+<% if logged_in? %>
+<h1>Bright Ideas</h1>
+	<% if current_user %>
+		<p class='success'>Welcome, <%= current_user.first_name %>!</p>
+		<hr>
+
+		<h3>Post Bright Ideas!</h3>
+		<%= form_for @post do |f| %>
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+			<%=f.text_area :content, placeholder: "Enter Your Post" %>
+			
+			<%=f.submit %>
+		<% end %>
+	<% else %>
+		<p class='error'>Please register or login to post</p>
+		<p><%= link_to 'Register', "/register" %></p>
+		<p><%= link_to 'Login', "/login" %></p>
+	<% end %>
+	<hr>
+
+	<p class='notice'><%= notice %></p>
+	<% @posts.each do |post| %>
+    <% if current_user.id == post.user.id %>
+            <a href="posts/<%= post.id %>/destroy" data-method="delete" style="color: black; text-decoration: none; font-weight: bold;">[Delete Post]</a>
+    <% end %>
+	<%= post.user.first_name %> says:</div>
+    <%= post.content %></div>
+</div>
+		<% if current_user %>
+		<%= button_to 'Like', post_likes_path(post) %>
+					</div>
+				<% end %>
+			<div class="col-md-3">
+				<%= link_to post.likes.count.to_s + ' people', post_path(post) %> like this.
+			</div> 
+		</div>
+	<% end %>
+<% end %>

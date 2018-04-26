@@ -10,7 +10,13 @@ class ApplicationController < ActionController::Base
   def not_current_user
     session[:user_id] == nil
   end
+
+  def logged_in?
+    !!current_user  # converting into a bolean
+  # else
+  #   redirect_to root_path
+  end
   
-    helper_method :current_user, :not_current_user
+    helper_method :current_user, :not_current_user, :logged_in?
 end
 
